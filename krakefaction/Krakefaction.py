@@ -112,6 +112,7 @@ class Sample:
     FAMILY = "f"
     GENERA = "g"
     SPECIES = "s"
+    SUBSPECIES = "s1"
 
     # Kraken:
     KRAKEN_SEPARATOR = "__"
@@ -143,6 +144,7 @@ class Sample:
         self.familyDictionary = {}
         self.generaDictionary = {}
         self.speciesDictionary = {}
+        self.subspeciesDictionary = {}
 
     """
     # =========================================================================
@@ -195,6 +197,7 @@ class Sample:
         self.updateDictionary(self.familyDictionary, rankings, self.FAMILY)
         self.updateDictionary(self.generaDictionary, rankings, self.GENERA)
         self.updateDictionary(self.speciesDictionary, rankings, self.SPECIES)
+        self.updateDictionary(self.subspeciesDictionary, rankings, self.SUBSPECIES)
 
     """
     # =========================================================================
@@ -323,7 +326,7 @@ def generateRarefaction(untranslatedLocation, translatedLocation, samples):
 
             # Advance the translated file to find the translation.
             translatedLine = translatedFile.readline()
-
+            
             # Tokenize the translation.
             tokens = translatedLine.strip().split()
             read = tokens[0].strip()
@@ -451,6 +454,12 @@ def writeResults(samples, outputFile):
     outputFile.write(str(len(samples[last].speciesDictionary))) # last
     outputFile.write("\n")
 
+    # Subspecies
+    outputFile.write("subspecies,")
+    for i in range(0, len(samples) - 1):
+        outputFile.write(str(len(samples[i].subspeciesDictionary)) + ",")
+    outputFile.write(str(len(samples[last].subspeciesDictionary))) # last
+    outputFile.write("\n")
 
 """
 # =============================================================================
